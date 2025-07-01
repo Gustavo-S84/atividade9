@@ -6,7 +6,114 @@
   <title>Sistema de Cadastro</title>
 
   <link rel="stylesheet" href="../global.css" />
-  <link rel="stylesheet" href="./styles.css" />
+
+  <styles>
+    body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    background-color: var(--color-1);
+    border-radius: 5px;
+    max-width: 700px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+input {
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+    box-sizing: border-box;
+    background: var(--color-3);
+    padding: 20px;
+    color: var(--color-4);
+    border-radius: 5px;
+    outline: none;
+    transition: 500ms;
+}
+
+input::placeholder {
+    color: var(--color-4);
+}
+
+input:disabled {
+    opacity: 0.5;
+}
+
+#telefone {
+    margin: 0 !important;
+}
+
+.botoes {
+    margin-top: 10px;
+    max-width: 700px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.botoes button {
+    padding: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.navegacao {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background: var(--color-1);
+    padding: 20px;
+    max-width: 700px;
+    width: 100%;
+}
+
+.navegacao button {
+    background: var(--color-3);
+    border: none;
+    color: white;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.incluir {
+    background-color: green;
+}
+
+.editar {
+    background-color: orange;
+}
+
+.salvar {
+    background-color: deepskyblue;
+}
+
+.cancelar {
+    background-color: rgb(224, 125, 125);
+}
+
+.excluir {
+    background-color: rgb(255, 55, 55);
+}
+
+
+  </styles>
+  
 </head>
 
 <body>

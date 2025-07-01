@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  
+  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="rest.css" />
+  <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+
+  <form id="login-form">
+    <label for="nome">Nome</label>
+    <input tabindex="1" id="nome" type="text" />
+
+    <label for="senha">Senha</label>
+    <input tabindex="2" id="senha" type="text" />
+
+    <button tabindex="3" type="submit">Entrar</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const nomeInput = document.getElementById('nome');
+    const senhaInput = document.getElementById('senha');
+
+    form.onsubmit = function (e){
+      e.preventDefault();
+
+      nomeInput.classList.remove('required', 'error');
+      senhaInput.classList.remove('required', 'error');
+
+      const nome = nomeInput.value.trim();
+      const senha = senhaInput.value.trim();
+
+      let hasError = false;
+
+      if (!nome) {
+        nomeInput.classList.add('required');
+        hasError = true;
+      }
+
+      if (!senha) {
+        senhaInput.classList.add('required');
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      if (nome === 'admin' && senha === 'admin') {
+        localStorage.setItem('login', 'true');
+        window.location.href = '/home';
+      } else {
+        nomeInput.classList.add('error');
+        senhaInput.classList.add('error');
+      }
+    };
+
+  </script>
+</body>
+</html>

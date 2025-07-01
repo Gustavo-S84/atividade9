@@ -48,7 +48,6 @@ input:disabled {
     width: 100%;
     display: flex;
     gap: 10px;
-    /* grid-template-columns: repeat(5, 1fr); */
 }
 
 .botoes button {

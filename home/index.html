@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Cadastro</title>
+
+  <link rel="stylesheet" href="../global.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="formulario">
+
+      <div class="linha">
+        <input id="nome" placeholder="Nome" disabled>
+        <input id="sobrenome" placeholder="Sobrenome" disabled>
+      </div>
+
+      <input id="endereco" placeholder="Endereço" disabled>
+      <input id="telefone" placeholder="Telefone" disabled>
+    </div>
+
+    <div class="botoes">
+      <button class="editar" onclick="editarCadastro()">Editar</button>
+      <button class="cancelar" onclick="cancelarEdicao()">Cancelar</button>
+      <button class="excluir" onclick="excluirCadastro()">Excluir</button>
+    </div>
+  </div>
+
+  <div class="navegacao">
+    <button onclick="primeiro()">|&lt;</button>
+    <button onclick="anterior()">&lt;</button>
+    <button onclick="proximo()">&gt;</button>
+    <button onclick="ultimo()">&gt;|</button>
+  </div>
+
+  <script>
+    let cadastros = [];
+    let indiceAtual = -1;
+    let botoes = document.querySelector(".botoes");
+    
+    let botaoIncluir =  document.createElement("button");
+    botaoIncluir.className = 'incluir';
+    botaoIncluir.textContent = 'Incluir';
+    botaoIncluir.onclick = incluirCadastro;
+    botoes.appendChild(botaoIncluir);
+    let _botaoIncluir = document.querySelector(".incluir"); 
+  
+    let botaoSalvar = document.createElement('button');
+    botaoSalvar.className = 'salvar';
+    botaoSalvar.textContent = 'Salvar';
+    botaoSalvar.onclick = salvarCadastro;
+
+    function coletarDadosFormulario() {
+      return {
+        nome: document.getElementById("nome").value,
+        sobrenome: document.getElementById("sobrenome").value,
+        endereco: document.getElementById("endereco").value,
+        telefone: document.getElementById("telefone").value
+      };
+    }
+
+    function atualizarFormulario() {
+      if (indiceAtual >= 0 && indiceAtual < cadastros.length) {
+        const dados = cadastros[indiceAtual];
+
+
+        document.getElementById("nome").value = dados.nome;
+        document.getElementById("sobrenome").value = dados.sobrenome;
+        document.getElementById("endereco").value = dados.endereco;
+        document.getElementById("telefone").value = dados.telefone;
+      } else {
+        document.getElementById("nome").value = "";
+        document.getElementById("sobrenome").value = "";
+        document.getElementById("endereco").value = "";
+        document.getElementById("telefone").value = "";
+      }
+    }
+
+    function habilitarEdicao(ativa) {
+      const campos = ["nome", "sobrenome", "endereco", "telefone"];
+      campos.forEach(id => document.getElementById(id).disabled = !ativa);
+    }
+
+    function incluirCadastro() {
+      botoes.appendChild(botaoSalvar);
+      _botaoIncluir.remove();
+
+      habilitarEdicao(true);
+      document.getElementById("nome").value = "";
+      document.getElementById("sobrenome").value = "";
+      document.getElementById("endereco").value = "";
+      document.getElementById("telefone").value = "";
+      indiceAtual = -1; // novo cadastro
+    }
+
+    function editarCadastro() {
+      if (indiceAtual >= 0 && indiceAtual < cadastros.length) {
+        botoes.appendChild(botaoSalvar);
+        _botaoIncluir.remove();
+        
+        habilitarEdicao(true);
+      }
+    }
+
+    function salvarCadastro() {
+      const dados = coletarDadosFormulario();
+      
+      botoes.appendChild(_botaoIncluir);
+      botaoSalvar.remove();
+
+      if (dados.nome.trim() === "") return alert("Nome é obrigatório!");
+
+      if (indiceAtual >= 0 && indiceAtual < cadastros.length) {
+        cadastros[indiceAtual] = dados;
+      } else {
+        cadastros.push(dados);
+        indiceAtual = cadastros.length - 1;
+      }
+
+      atualizarFormulario();
+      habilitarEdicao(false);
+    }
+
+    function cancelarEdicao() {
+      atualizarFormulario();
+      habilitarEdicao(false);
+    }
+
+    function excluirCadastro() {
+      if (indiceAtual >= 0 && indiceAtual < cadastros.length) {
+        cadastros.splice(indiceAtual, 1);
+        indiceAtual = Math.max(0, indiceAtual - 1);
+        atualizarFormulario();
+      }
+    }
+
+    function primeiro() {
+      if (cadastros.length > 0) {
+        indiceAtual = 0;
+        atualizarFormulario();
+      }
+    }
+
+    function ultimo() {
+      if (cadastros.length > 0) {
+        indiceAtual = cadastros.length - 1;
+        atualizarFormulario();
+      }
+    }
+
+    function anterior() {
+      if (indiceAtual > 0) {
+        indiceAtual--;
+        
+        atualizarFormulario();
+      }
+    }
+
+    function proximo() {
+      if (indiceAtual < cadastros.length - 1) {
+        indiceAtual++;
+        atualizarFormulario();
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>
